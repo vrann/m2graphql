@@ -12,5 +12,14 @@
             "email": "vranen@gmail.com"
         }
     ],
-    "minimum-stability": "alpha"
+    "minimum-stability": "alpha",
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "Magento\\GraphQL\\": "",
+            "GraphQL\\Examples\\Blog\\": "/../../webonyx/graphql-php/examples/01-blog/Blog/"
+        }
+    }
 }
