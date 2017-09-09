@@ -1,0 +1,16 @@
+{
+    "name": "vrann/m2graphql",
+    "description": "Magento 2 Graph QL APIs",
+    "type": "library",
+    "require": {
+        "webonyx/graphql-php": "^0.9.9"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Eugene Tulika",
+            "email": "vranen@gmail.com"
+        }
+    ],
+    "minimum-stability": "alpha"
+}
