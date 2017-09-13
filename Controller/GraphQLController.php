@@ -17,22 +17,23 @@ class GraphQLController implements \Magento\Framework\App\FrontControllerInterfa
      * @var \Magento\Framework\HTTP\PhpEnvironment\Response
      */
     private $response;
+
+    /**
+     * @var \Magento\GraphQL\Model\Types
+     */
+    private $types;
+
     /**
      * @param \Magento\Framework\HTTP\PhpEnvironment\Response $response
      */
-    public function __construct(\Magento\Framework\HTTP\PhpEnvironment\Response $response)
-    {
+    public function __construct(
+        \Magento\Framework\HTTP\PhpEnvironment\Response $response,
+        \Magento\GraphQL\Model\Types $types
+    ) {
         $this->response = $response;
+        $this->types = $types;
     }
-    /**
-     * Handle REST request
-     *
-     * Based on request decide is it schema request or API request and process accordingly.
-     * Throws Exception in case if cannot be processed properly.
-     *
-     * @param \Magento\Framework\App\RequestInterface $request
-     * @return \Magento\Framework\App\ResponseInterface
-     */
+
     public function dispatch(\Magento\Framework\App\RequestInterface $request)
     {
         // Disable default PHP error reporting - we have better one for debug mode (see bellow)
@@ -44,7 +45,7 @@ class GraphQLController implements \Magento\Framework\App\FrontControllerInterfa
             // Catch custom errors (to report them in query results if debugging is enabled)
             $phpErrors = [];
             set_error_handler(function($severity, $message, $file, $line) use (&$phpErrors) {
-                $phpErrors[] = new ErrorException($message, 0, $severity, $file, $line);
+                $phpErrors[] = new \ErrorException($message, 0, $severity, $file, $line);
             });
         }
         try {
@@ -68,8 +69,9 @@ class GraphQLController implements \Magento\Framework\App\FrontControllerInterfa
             }
             // GraphQL schema to be passed to query executor:
             $schema = new Schema([
-                'query' => Types::query()
+                'query' => $this->types->getTypes()//Types::query()
             ]);
+
             $result = GraphQL::execute(
                 $schema,
                 $data['query'],
