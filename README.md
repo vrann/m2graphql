@@ -87,37 +87,64 @@ M2GraphQL extension works on top of the Magento Webapi framework and re-uses sam
 GraphQL schema design conventions has certain assumptions which does not directly correspond to the Service contracts. For example fields of the Query root object are expected to be the Objects, whic can use filters to pass the parameters to data retrieval layer. While root object of the Service contract is operation, which can accept the date. In order to make a transition of the Service Contracts to GraphQL paradigm, following rules were used:
 
 1. All GET requests are exposed as a fields on the Query object
-2. For particular GET request, the type of the corresponding field constructed buy taking the name of the result object of the related service contract method
+2. For particular GET request, the type of the corresponding field constructed by taking the name of the result object of the related service contract method
 3. The arguments to the field are taken from the parameters of the method of the corresponding service contract method
 
 Example:
 webapi.xml
 ```xml
-<>
-<>
+ <route url="/V1/products/:sku" method="GET">
+        <service class="Magento\Catalog\Api\ProductRepositoryInterface" method="get"/>
+        <resources>
+            <resource ref="Magento_Catalog::products" />
+        </resources>
+    </route>
 ```
+
 RepositoryInterface
 ```php
-
+/**
+     * Get info about product by product SKU
+     *
+     * @param string $sku
+     * @param bool $editMode
+     * @param int|null $storeId
+     * @param bool $forceReload
+     * @return \Magento\Catalog\Api\Data\ProductInterface
+     * @throws \Magento\Framework\Exception\NoSuchEntityException
+     */
+    public function get($sku, $editMode = false, $storeId = null, $forceReload = false);
 ```
+
 GraphQL schema
 ```
+MagentoCatalogProduct(
+    sku: String
+    editMode: Boolean
+    storeId: Int
+    forceReload: Boolean
+): Magento_Catalog_Api_Data_ProductInterface
 ```
 
 4. Input and output parameters are constructed from the input object replacing \\ with _
 5. Input parameters has _Input suffix
 
+example of the SearchCriteria:
+```
+MagentoCmsBlockSearchResults(searchCriteria: Magento_Framework_Api_SearchCriteriaInterface_Input): Magento_Cms_Api_Data_BlockSearchResultsInterface
+```
+
 ### Authorization
 
 ### Requesting Object
 
-```json
+```
 MagentoStoreStores{id, name, code}
 ```
 
 ### Requesting Objects With Parameters
 
-```json
+```
 MagentoCatalogProduct(sku: "CannondaleCaad1032014"){
     id, name, price, media_gallery_entries {
       file
@@ -130,7 +157,7 @@ MagentoCatalogProduct(sku: "CannondaleCaad1032014"){
 
 ### SerachCriteria Request example
 
-```json
+```
 MagentoCmsBlockSearchResults(searchCriteria: {
     sort_orders: {
     	field: "block_id",
