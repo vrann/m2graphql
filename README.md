@@ -27,9 +27,8 @@ Magento 2 GraphQL server endpoint can be used by any GraphQL client. It is:
 
 2. Download and Install Package
 
-
-1. `composer require vrann/m2graphql`
-2. `bin/magento module:enable Magento_GraphQL`
+- `composer require vrann/m2graphql`
+- `bin/magento module:enable Magento_GraphQL`
 
 ## Usage
 
