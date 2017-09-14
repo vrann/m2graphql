@@ -34,6 +34,7 @@ Set minimum-stability to dev:
 
 - `composer require vrann/m2graphql:dev-master`
 - `bin/magento module:enable Magento_GraphQL`
+- `bin/magento setup:upgrade`
 
 ## Usage
 
