@@ -42,7 +42,7 @@ The easiest way to try GraphQL API is to install Graph<i>i</i>QL user interface 
 
 However, production application which uses GraphQL can be written on any language [which has clients](), and this in this document all examples will be using javascript and the Apollo client.
 
-### Get Started
+### Writing JS Client
 
 Following is an excerpt of Apollo documentation
 
@@ -64,13 +64,14 @@ To execute a query with your client you may now call the `client.query` method l
 ```js
 client.query({
   query: gql`
-    query TodoApp {
-      todos {
-        id
-        text
-        completed
-      }
+    query MagentoCatalogProduct(sku: "CannondaleCaad1032014"){
+    id, name, price, media_gallery_entries {
+      file
+    }, custom_attributes {
+      attribute_code,
+      value
     }
+  }
   `,
 })
   .then(data => console.log(data))
