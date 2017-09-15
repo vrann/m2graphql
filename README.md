@@ -1,6 +1,6 @@
 # Magento 2 GraphQL API [![Get on Slack](https://img.shields.io/badge/slack-join-orange.svg)](https://www.surveymonkey.com/r/27NGBTB)
 
-Magento 2 GraphQL APi is fully-featured GraphQL server on top of the Magento 2 Service Contracts. It allows to easily consume Magento APIs through the GraphQL clients, such as [Apollo](http://dev.apollodata.com/). Also, it allows to create GraphQL APIs in 3-d party Magento extensions, in order to expose custom extension data to the GraphQL clients. The primary use-case for such APIs is javascript clients which implement re-usable UI building blocks (Web Components) and use Magento in a headless way.
+Magento 2 GraphQL API is a fully-featured GraphQL server on top of the Magento 2 Service Contracts. It allows to easily consume Magento APIs through the GraphQL clients, such as [Apollo](http://dev.apollodata.com/). Also, it allows creating GraphQL APIs in 3-d party Magento extensions, in order to expose custom extension data to the GraphQL clients. The primary use-case for such APIs is javascript clients which implement re-usable UI building blocks (Web Components) and use Magento in a headless way.
 
 To get started with the go to Magento 2 Graph<i>i</i>QL demo page [**Magento 2 Graph<i>i</i>QL Playground**](http://m2graphql.com/graphiql/).
 
@@ -9,7 +9,7 @@ Magento 2 GraphQL server endpoint can be used by any GraphQL client. It:
 1. Exposes Magento 2 Web REST APIs with the GraphQL interface
 2. Installed as an extension on Magento 2 and does not require core customizations
 3. Uses webonyx/graphql-php library which implements all server-side features of the GraphQL language
-4. Allows traffic optimization for the client applications transfering just the data needed in particular use-case. Allows to combine multiple API request in a single request.
+4. Allows traffic optimization for the client applications transferring just the data needed in particular use-case. Allows combining multiple API requests in a single request.
 5. Supports Magento 2 API authentication model and exposes just the data client authorized to see
 6. Supports flexible deprecation model informing clients on usage of deprecated fields
 
@@ -40,7 +40,7 @@ Set minimum-stability to dev:
 
 The easiest way to try GraphQL API is to install Graph<i>i</i>QL user interface either as [app](https://github.com/skevy/graphiql-app) or [Chrome ChromeiQL extension](https://chrome.google.com/webstore/detail/chromeiql/fkkiamalmpiidkljmicmjfbieiclmeij) to the browser. The [Appolo Client DevTools](https://github.com/apollographql/apollo-client-devtools) allows to install developer tools in the Chrome console.
 
-Production application which uses GraphQL can be written on [any supported language](http://graphql.org/code/). In this document all examples will be using javascript and the Apollo client.
+Production application which uses GraphQL can be written on [any supported language](http://graphql.org/code/). In this document all, examples will be using javascript and the Apollo client.
 
 ### Writing JS Client
 
@@ -85,11 +85,11 @@ If you worked with the Magento Service layer, you should already be familiar wit
 2. [DevDocs Service Contracts](http://devdocs.magento.com/guides/v2.2/extension-dev-guide/service-contracts/design-patterns.html)
 3. [Fooman on Extension Attributes](https://store.fooman.co.nz/blog/an-introduction-to-extension-attributes.html)
 
-M2GraphQL extension works on top of the Magento Webapi framework and re-uses the same insfrastructure, that's why most of the concepts will work in the same way.
+M2GraphQL extension works on top of the Magento Webapi framework and re-uses the same infrastructure, that's why most of the concepts will work in the same way.
 
 ### Mapping of Service Contracts to GraphQL Schema
 
-At the same time, GraphQL schema design conventions has certain assumptions which does not directly correspond to the Service contracts. One example -- fields of the Query root object are expected to be Objects, and they can accept filters as a parameters of the query to the data retrieval layer. While root objects of the Service contracts are operations, which can accept the input Object of operation. In order to make the transition of the Service Contracts to GraphQL paradigm, following rules were used:
+At the same time, GraphQL schema design conventions have certain assumptions which do not directly correspond to the Service contracts. One example -- fields of the Query root object are expected to be Objects, and they can accept filters as parameters of the query to the data retrieval layer. While root objects of the Service contracts are operations, which can accept the input Object of operation. In order to make the transition of the Service Contracts to GraphQL paradigm, following rules were used:
 
 1. All GET requests are exposed as fields of the Query object
 2. For particular GET request, the type of the corresponding field is constructed using the name of the result object (declared in @return annotation) of the related service interface method.
