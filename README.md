@@ -36,6 +36,10 @@ Set minimum-stability to dev:
 - `bin/magento module:enable Magento_GraphQL`
 - `bin/magento setup:upgrade`
 
+3. Verify that it works
+
+- in the browser, go to the `http://magento-base-url/graphql` and you expected to see properly formed JSON document
+
 ## Usage
 
 The easiest way to try GraphQL API is to install Graph<i>i</i>QL user interface either as [app](https://github.com/skevy/graphiql-app) or [Chrome ChromeiQL extension](https://chrome.google.com/webstore/detail/chromeiql/fkkiamalmpiidkljmicmjfbieiclmeij) to the browser. The [Appolo Client DevTools](https://github.com/apollographql/apollo-client-devtools) allows to install developer tools in the Chrome console.
@@ -44,7 +48,7 @@ Production application which uses GraphQL can be written on [any supported langu
 
 ### Writing JS Client
 
-Following is an excerpt of Apollo documentation
+Following is an excerpt of Apollo documentation:
 
 ```js
 import ApolloClient, { createNetworkInterface } from 'apollo-client';
