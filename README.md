@@ -15,7 +15,7 @@ Magento 2 GraphQL server endpoint can be used by any GraphQL client. It:
 
 ## Installation 
 
-1. Add repository to the composer.json
+#### 1. Add repository to the composer.json
 ```
 "repositories": [
       {
@@ -30,13 +30,13 @@ Set minimum-stability to dev:
 "minimum-stability": "dev"
 ```
 
-2. Download and Install Package
+#### 2. Download and Install Package
 
 - `composer require vrann/m2graphql:dev-master`
 - `bin/magento module:enable Magento_GraphQL`
 - `bin/magento setup:upgrade`
 
-3. Verify that it works
+#### 3. Verify that it works
 
 - in the browser, go to the `http://magento-base-url/graphql` and you expected to see properly formed JSON document
 
