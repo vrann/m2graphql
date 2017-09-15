@@ -1,6 +1,14 @@
 var path = require('path');
 var webpack = require('webpack')
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const context = path.resolve(__dirname, './');
+//'transform-react-jsx',
+// [
+//   'react-css-modules',
+//   {
+//     context
+//   }
+// ]
 var webpackConfig = {
     entry: './src/index.js',
     output: {
@@ -10,15 +18,24 @@ var webpackConfig = {
     module: {
         loaders: [
           {
-            test: /\.js$/,
+            include: path.resolve(__dirname, './src'),
             exclude: /node_modules/,
-            loader: "babel-loader",
-            query:
-            {
-              presets:['react']
-            }
+            loader: 'babel-loader',
+            query: {
+              presets:['react'],
+              plugins: [
+                
+              ]
+            },
+            test: /\.js$/
           },
-          {test: /\.css$/, loader: 'css-loader'},
+          {
+            test: /\.css$/,
+            loaders: [
+              'style-loader',
+              'css-loader',
+            ],
+          },
           {test: /\.(png|woff|woff2|eot|ttf|svg)$/, loader: 'url-loader?limit=100000' },    
         ],
       }
