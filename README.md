@@ -85,8 +85,8 @@ client.query({
 ## Magento APIs
 
 If you worked with the Magento Service layer, you should already be familiar with the concept of authorization, Service Interfaces, Data Interfaces, REST routing. Otherwise, please read following materials:
-1. [devdocs API authentication](http://devdocs.magento.com/guides/v2.2/get-started/authentication/gs-authentication.html)
-2. [DevDocs Service Contracts](http://devdocs.magento.com/guides/v2.2/extension-dev-guide/service-contracts/design-patterns.html)
+1. [DevDocs on API authentication](http://devdocs.magento.com/guides/v2.2/get-started/authentication/gs-authentication.html)
+2. [DevDocs on Service Contracts](http://devdocs.magento.com/guides/v2.2/extension-dev-guide/service-contracts/design-patterns.html)
 3. [Fooman on Extension Attributes](https://store.fooman.co.nz/blog/an-introduction-to-extension-attributes.html)
 
 M2GraphQL extension works on top of the Magento Webapi framework and re-uses the same infrastructure, that's why most of the concepts will work in the same way.
