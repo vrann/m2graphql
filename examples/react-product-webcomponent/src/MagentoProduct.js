@@ -26,7 +26,7 @@ class MagentoProduct extends React.Component {
         };
 
         const networkInterface = createNetworkInterface({
-            uri: 'http://deployment.vm/m2graphql-base/graphql',
+            uri: 'http://m2graphql.com/graphql',
         });
         networkInterface.useAfter([logErrors]);
 
@@ -39,7 +39,7 @@ class MagentoProduct extends React.Component {
 
         var result = client.query({
             query: gql`
-        { MagentoCatalogProduct(sku: "CannondaleCaad1032014"){
+        { MagentoCatalogProduct(sku: "24-MB01"){
           id, name, price, media_gallery_entries {
             file
           }, custom_attributes {
