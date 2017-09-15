@@ -15,7 +15,7 @@ Magento 2 GraphQL server endpoint can be used by any GraphQL client. It:
 
 ## Purpose and Intent of this Repo
 
-Investigate GraphQL API and come up with the best design for the M2 GraphQL schema. Use **playground**, experiment and share hat you liked! Feedback and ides are welcome.
+Investigate GraphQL API and come up with the best design for the M2 GraphQL schema. Use **playground**, experiment and share what you liked! Feedback and ides are welcome. Please join #pwa slack channel for the most efficient discussions.
 
 ## Installation 
 
