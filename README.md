@@ -140,7 +140,9 @@ MagentoCatalogProduct(
 
 #### Example of the SearchCriteria:
 ```
-MagentoCmsBlockSearchResults(searchCriteria: Magento_Framework_Api_SearchCriteriaInterface_Input): Magento_Cms_Api_Data_BlockSearchResultsInterface
+MagentoCmsBlockSearchResults(
+      searchCriteria: Magento_Framework_Api_SearchCriteriaInterface_Input
+): Magento_Cms_Api_Data_BlockSearchResultsInterface
 ```
 
 ### Authorization
