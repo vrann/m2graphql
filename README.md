@@ -13,6 +13,10 @@ Magento 2 GraphQL server endpoint can be used by any GraphQL client. It:
 5. Supports Magento 2 API authentication model and exposes just the data client authorized to see
 6. Supports flexible deprecation model informing clients on usage of deprecated fields
 
+## Intent of this Repo
+
+Investigate GraphQL API and come up with the best design for the M2 GraphQL schema. Use *playground*, experiment and share hat you liked! Feedback and ides are welcome.
+
 ## Installation 
 
 #### 1. Add repository to the composer.json
