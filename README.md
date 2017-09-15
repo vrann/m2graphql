@@ -13,6 +13,10 @@ Magento 2 GraphQL server endpoint can be used by any GraphQL client. It:
 5. Supports Magento 2 API authentication model and exposes just the data client authorized to see
 6. Supports flexible deprecation model informing clients on usage of deprecated fields
 
+## Purpose and Intent of this Repo
+
+Investigate GraphQL API and come up with the best design for the M2 GraphQL schema. Use **playground**, experiment and share what you liked! Feedback and ides are welcome. Please join #pwa slack channel for the most efficient discussions.
+
 ## Installation 
 
 #### 1. Add repository to the composer.json
@@ -172,7 +176,7 @@ MagentoCatalogProduct(sku: "CannondaleCaad1032014"){
   }
 ```
 
-### SerachCriteria Request example
+### SearchCriteria Request example
 
 Example of the getList query with the SearchCriteria:
 ```
@@ -192,3 +196,6 @@ MagentoCmsBlockSearchResults(searchCriteria: {
     items{id, title, content}
   }
 ```
+## React Sample App
+
+The examples directory [examples/react-product-webcomponent](https://github.com/vrann/m2graphql/tree/master/examples/react-product-webcomponent) contains sample React application which loads Magento Product from the GraphQL API and renders as a javascript widget
