@@ -13,9 +13,15 @@ Magento 2 GraphQL server endpoint can be used by any GraphQL client. It:
 5. Supports Magento 2 API authentication model and exposes just the data client authorized to see
 6. Supports flexible deprecation model informing clients on usage of deprecated fields
 
-## Purpose and Intent of this Repo
+### Purpose and Intent of this Repo
 
 Investigate GraphQL API and come up with the best design for the M2 GraphQL schema. Use **playground**, experiment and share what you liked! Feedback and ides are welcome. Please join #pwa slack channel for the most efficient discussions.
+
+### Related Work
+
+[Alan Kent](https://github.com/alankent) is doing [exploration project](https://github.com/alankent/module-graphql) with slightly different approach: instead of using current Magento APIs as a base for GraphQL schema, the schema for GraphQL is deisgned from the scratch, getting it directly to the desired end state of the GraphQL API, and Magento API will be changed (or re-implemented) accordingly. At the end, we will take the best of both approaches. Current repository allows to play with all the Magento API data immediatedly, while Alan's is focused on how to make the requests most convenient.
+
+Read more in [Dev Blog](https://community.magento.com/t5/Magento-DevBlog/Why-GraphQL-Is-Interesting-for-Magento-2/ba-p/71539)
 
 ## Installation 
 
