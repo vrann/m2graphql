@@ -199,3 +199,9 @@ MagentoCmsBlockSearchResults(searchCriteria: {
 ## React Sample App
 
 The examples directory [examples/react-product-webcomponent](https://github.com/vrann/m2graphql/tree/master/examples/react-product-webcomponent) contains sample React application which loads Magento Product from the GraphQL API and renders as a javascript widget
+
+### Run the Example
+
+1. Clone this repository
+2. `cd examples/react-product-webcomponent`
+3. open index.html in browser
