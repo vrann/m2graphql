@@ -2,7 +2,7 @@
 
 Magento 2 GraphQL API is a fully-featured **GraphQL** [(watch video)](https://www.youtube.com/watch?v=wPPFhcqGcvk) server on top of the [Magento 2 Service Contracts](http://devdocs.magento.com/guides/v2.2/extension-dev-guide/service-contracts/design-patterns.html). It allows to easily consume Magento APIs through the GraphQL clients, such as [Apollo](http://dev.apollodata.com/). Also, it allows creating GraphQL APIs in 3-d party Magento extensions, in order to expose custom extension data to the GraphQL clients. The primary use-case for such APIs is javascript clients which implement re-usable UI building blocks (Web Components) and use Magento in a headless way.
 
-To get started with the M2 GraphQL go to Magento 2 Graph<i>i</i>QL demo page [**Magento 2 Graph<i>i</i>QL Playground**](http://m2graphql.com/graphiql/).
+To get started with the M2 GraphQL go to Magento 2 Graph<i>i</i>QL demo page [**Magento 2 Graph<i>i</i>QL Playground**](http://m2graphql.com/graphiql/) which works on top of the [store withs the sample data](http://m2graphql.com/).
 
 Magento 2 GraphQL server endpoint can be used by any GraphQL client. It:
 
