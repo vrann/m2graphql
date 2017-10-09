@@ -103,7 +103,7 @@ class Types
             $itemType = $this->typeProcessor->getArrayItemType($interface);
             if ($itemType == 'anyType' || isset($this->visited[$itemType]) && !isset($this->dataInterfaces[$itemType])) {
                 $type =  Type::string();
-                    return new ListOfType($type);
+                return new ListOfType($type);
             } else {
                 $resultType = $this->getDataType($itemType, $inputType);
                 if ($resultType) {
@@ -135,10 +135,40 @@ class Types
                 if (substr($methodName, 0, 3) === \Magento\Framework\Reflection\FieldNamer::GETTER_PREFIX) {
                     $fieldName = $this->fieldNamer->getFieldNameForMethodName($methodName);
                     $fieldName = is_null($fieldName) ? $methodName : $fieldName;
+                    $args = null;
+                    $resolveField = null;
+                    if ($fieldName == 'custom_attributes') {
+//                        //$type = 'Object';
+//                        $metadataInterface = "";
+//                        switch ($interface) {
+//                            case "\Magento\Customer\Api\Data\AddressInterface":
+//                                $metadataInterface = "\Magento\Customer\Api\AddressMetadataInterface";
+//                                break;
+//                            case "\Magento\Customer\Api\Data\CustomerInterface":
+//                                break;
+//                            case "\Magento\Catalog\Api\Data\ProductInterface":
+//                                break;
+//                            case "\Magento\Catalog\Api\Data\ProductAttributeInterface":
+//                                break;
+//                            case "\Magento\Catalog\Api\Data\CategoryAttributeInterface":
+//                                break;
+//                            case "\Magento\Catalog\Api\Data\CategoryInterface":
+//                                break;
+//                            case "\Magento\Framework\Api\Search\DocumentInterface":
+//                                break;
+//                            case "\Magento\Quote\Api\Data\AddressInterface":
+//                                break;
+//                        }
+                        $args = ['filter' => ['type' => new ListOfType(Type::string())]];
+                        $resolveField = function($value, $args, $context, ResolveInfo $info) {
+                            return $value[$info->fieldName];
+                        };
+                    }
+
                     $type = null;
-                    if ($method['type'] == 'mixed' || (isset($this->visited[$method['type']]) && !isset($this->dataInterfaces[$method['type']]))) {
+                    if ($method['type'] == 'mixed'
+                        || (isset($this->visited[$method['type']]) && !isset($this->dataInterfaces[$method['type']]))) {
                         $type =  Type::string();
-                        //$fieldName .= "*";
                     } else {
                         $type = $this->getDataType($method['type'], $inputType);
                     }
@@ -151,7 +181,12 @@ class Types
                         'description' => $method['description'],
                         'required' => $method['isRequired']
                     ];
-
+                    if ($args !== null) {
+                        $fields[$fieldName]['args'] = $args;
+                    }
+                    if ($resolveField !== null) {
+                        $fields[$fieldName]['resolveField'] = $resolveField;
+                    }
                 }
             }
             if (empty($fields)) {
@@ -163,6 +198,19 @@ class Types
                     'description' => 'TBD',
                     'fields' => $fields,
                     'resolveField' => function($value, $args, $context, ResolveInfo $info) {
+                        if ($info->fieldName == 'custom_attributes') {
+                            if (isset($args['filter']) && count($args['filter']) > 0) {
+                                $result = [];
+                                foreach ($args['filter'] as $attribute_code) {
+                                    foreach ($value['custom_attributes'] as $attribute) {
+                                        if ($attribute['attribute_code'] == $attribute_code) {
+                                            $result[] = $attribute;
+                                        }
+                                    }
+                                }
+                                return $result;
+                            }
+                        }
                         return $value[$info->fieldName];
                     }
                 ]);
@@ -203,9 +251,7 @@ class Types
             }
         ];
         $webApiConfig = $this->webapiConfig->getServices();
-//        $counter = 0;
         foreach ($webApiConfig['routes'] as $route => $methods) {
-//           $counter++;
             if (!isset($methods['GET'])) {
                 continue;
             }
@@ -222,27 +268,6 @@ class Types
                 ];
             }
 
-            //$graphQLObject = "";
-//            $patterns = [
-//                //'repository' => "/\\\\{0,1}(?<vendor>\w*)\\\\(?<object>\w*)\\\\Api\\\\(?<repository>([A-Z][a-z]*)*)RepositoryInterface/",
-//                //'metadata' => "/\\\\{0,1}(?<vendor>\w*)\\\\(?<object>\w*)\\\\Api\\\\(?<metadata>[A-Z][a-z]*)MetadataInterface/",
-//                //'management' => "/\\\\{0,1}(?<vendor>\w*)\\\\(?<object>\w*)\\\\Api\\\\(?<management>[A-Z][a-z]*)ManagementInterface/",
-//                'objName' => "/\\\\{0,1}(?<vendor>\w*)\\\\(?<object>\w*)\\\\Api\\\\(?<objName>([A-Z][a-z]*)*)Interface/"
-//            ];
-
-//            $matched = false;
-//            foreach ($patterns as $patternName => $pattern) {
-//                $matches = [];
-//                if (preg_match($pattern, $service['class'], $matches)) {
-//                    //$graphQLObject .= $matches['object'] . $matches[$patternName];
-//                    $matched = true;
-//                    break;
-//                }
-//            }
-//            if (!$matched) {
-//                continue;
-//            }
-            //$graphQLObject .= str_replace('get', "", $service['method']);
             $fieldType = $this->getDataType($type['type']);
             $class = str_replace("\\", "", $type['type']);
             $class = str_replace("[]", "s", $class);
@@ -272,7 +297,6 @@ class Types
                         $service['class'],
                         $service['method']
                     );
-                    //print_r($outputData);
                     return $outputData;
                 }
             ];

@@ -202,6 +202,43 @@ MagentoCmsBlockSearchResults(searchCriteria: {
     items{id, title, content}
   }
 ```
+
+### Requesting Custom Attributes
+
+Custom attributes is an array of Attributes in the data interfaces corresponding to EAV entities which represent values of EAV attributes. You can find examples of custom attributes on the ProductInetrafce, CustomerInterface, etc
+
+Custom attributes are not filterable and represented as an array of all attributes available for the entity. In order to make retrieval of custom attributes more efficient, filtration syntax is added.
+
+Now, in order to request specific attribute under EAV entity interface, specify filter request: `filter:["attribute_code"]`
+ 
+Example:
+```
+MagentoCatalogProductSearchResults(searchCriteria:{
+    filter_groups: {
+       filters: {
+        field: "sku",
+        value: "MH12",
+        condition_type: "in"
+      }
+    },
+    page_size:10,
+    current_page: 0
+}){
+  items {
+    id, 
+    name, 
+    price, 
+    custom_attributes(
+        filter:["thumbnail"]
+    ) {
+        attribute_code, 
+        value
+    }
+  }
+}
+``` 
+
+
 ## React Sample App
 
 The examples directory [examples/react-product-webcomponent](https://github.com/vrann/m2graphql/tree/master/examples/react-product-webcomponent) contains sample React application which loads Magento Product from the GraphQL API and renders as a javascript widget
