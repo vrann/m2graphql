@@ -2,6 +2,14 @@
 
 This is React Sampel App demonstrating capabilities of the GraphQL in combination with the React frontend frameowrk
 
+## Installation
+
+1. ``git clone https://github.com/vrann/m2graphql``
+2. ``cd m2graphql m2graphql/examples/react-product-webcomponent``
+3. open `index.html`
+
+To start the webpack when changes are applied `npm run dev`
+
 ## App structure
 
 1. `src/index.js` contains the entry point to application which invokes React rendering logic requesting to render App component:
