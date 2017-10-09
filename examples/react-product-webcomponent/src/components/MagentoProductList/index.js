@@ -8,6 +8,7 @@ class MagentoProductList extends React.Component {
     constructor(props) {
         super(props);
         console.log(props);
+        this.id = 'MagentoProductList' + new Date().getUTCMilliseconds();
         this.props.registerGQL({
             query: this.getGQL(),
             callback: this.dataLoaded.bind(this)
@@ -34,15 +35,17 @@ class MagentoProductList extends React.Component {
         return new Promise((resolve, reject) => {
             dataPromise.then(result => {
                 try {
-                    console.log(result.data);
-                    if (result.data.hasOwnProperty('MagentoCatalogCategoryProductLinks')) {
+                    var linksAlias = this.id + 'MagentoCatalogCategoryProductLinks';
+                    var productItemsAlias = this.id + `MagentoCatalogProductSearchResults`;
+                    
+                    if (result.data.hasOwnProperty(linksAlias)) {
                         const productSkus = []
-                        result.data.MagentoCatalogCategoryProductLinks.map(categoryLink => {
+                        result.data[linksAlias].map(categoryLink => {
                             productSkus.push(categoryLink.sku);
                         })
 
                         resolve({
-                            query: `MagentoCatalogProductSearchResults(searchCriteria:{
+                            query: productItemsAlias + `: MagentoCatalogProductSearchResults(searchCriteria:{
                                 filter_groups: {
                                    filters: {
                                     field: "sku",
@@ -59,9 +62,9 @@ class MagentoProductList extends React.Component {
                             }`,
                             callback: this.dataLoaded.bind(this)
                         })
-                    } else if (result.data.hasOwnProperty('MagentoCatalogProductSearchResults')) {
+                    } else if (result.data.hasOwnProperty(productItemsAlias)) {
                         var state = {}
-                        state['ProductItems'] = result.data.MagentoCatalogProductSearchResults.items;
+                        state['ProductItems'] = result.data[productItemsAlias].items;
                         this.setState(state)
                         console.log(this.state)
                         resolve(true);
@@ -76,7 +79,7 @@ class MagentoProductList extends React.Component {
     }
 
     getGQL() {
-        return `MagentoCatalogCategoryProductLinks(categoryId: 2) {
+        return this.id + `MagentoCatalogCategoryProductLinks: MagentoCatalogCategoryProductLinks(categoryId: `+ this.props.categoryId + `) {
             sku, position
         }`
     }

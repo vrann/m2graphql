@@ -18,8 +18,8 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <MagentoProductList registerGQL={this.registerGQL.bind(this)} />
-        <MagentoProductList registerGQL={this.registerGQL.bind(this)} />
+        <MagentoProductList categoryId={2} registerGQL={this.registerGQL.bind(this)} />
+        <MagentoProductList categoryId={30} registerGQL={this.registerGQL.bind(this)} />
       </div>
     );
   }
@@ -29,6 +29,7 @@ class App extends Component {
     const query = {
       query:  gql(queriesConcat)
     }
+    
     
     const client = ApolloFactory();
     const promise = client.query(query);
